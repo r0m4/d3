@@ -14,7 +14,7 @@
                 .append("g")
                     .attr("transform", "translate(50, 50)");
 
-            var tree = d3.layout.tree()
+            var tree = d3.layout.cluster()
                 .size([400, 400]);
 
             d3.json("mydata.json", function (data) {
@@ -27,7 +27,7 @@
                     .enter()
                     .append("g")
                         .attr("class", "node")
-                        .attr("transform", function (d) { return "translate(" + d.y + "," + d.x + ")"})
+                        .attr("transform", functio  n (d) { return "translate(" + d.y + "," + d.x + ")"})
 
                     node.append("circle")
                         .attr("r", 5)

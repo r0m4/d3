@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3: Empty page template</title>
+        <script type="text/javascript" src="d3.v3.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            
+            var canvas = d3.select("body").append("svg")
+                .attr("width", 760)
+                .attr("height", 700)            
+
+
+            d3.json("UKR.geo.json", function (data) {
+
+                var group = canvas.selectAll("g")
+                    .data(data.features)
+                    .enter()
+                    .append("g")
+
+                var projection = d3.geo.mercator()
+                    .scale(1020)
+                    .translate([0, 1200]);
+
+                var path = d3.geo.path().projection(projection);
+
+                var areas = group.append("path")
+                    .attr("d", path)
+                    .attr("class", "area")
+                    .attr("fill", "steelblue");
+
+                group.append("text")
+                    .attr("x", function (d) { return path.centroid(d)[0]; })
+                    .attr("y", function (d) { return path.centroid(d)[1]; })
+                    .attr("text-anchor", "middle")            
+                    .text(function (d) { return d.properties.name; })
+            })
+
+        </script>
+    </body>
+</html>
